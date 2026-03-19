@@ -1,0 +1,42 @@
+{{ 'global.css' | asset_url | stylesheet_tag }}
+
+<section class="product-faq">
+
+  <h2>Perguntas Frequentes</h2>
+
+  {% assign product = section.settings.product %}
+
+  {% assign faqs = product.metafields.custom.product_with_faq.value %}
+
+  {% if faqs != blank %}
+    <div class="faq">
+      {% for item in faqs %}
+        <div class="faq-item">
+          <h3>{{ item.pergunta.value }}</h3>
+          <p>{{ item.resposta.value }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>FAQ vazio ou não encontrado</p>
+  {% endif %}
+
+</section>
+
+{% schema %}
+{
+  "name": "Product FAQ",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Produto"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product FAQ"
+    }
+  ]
+}
+{% endschema %}
