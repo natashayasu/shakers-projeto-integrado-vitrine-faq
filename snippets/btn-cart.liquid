@@ -1,0 +1,7 @@
+{{ 'main-product.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'btn-cart.js' |  asset_url }}" defer></script>
+
+<button type="button" class="btn-cart" data-variant-id="{{ product.variants.first.id }}">
+        Adicionar ao carrinho
+</button>
