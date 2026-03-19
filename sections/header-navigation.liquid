@@ -1,0 +1,19 @@
+{{ 'header-navigation.css' |  asset_url | stylesheet_tag }}
+
+<header>
+    <div id="logo">
+        {{ shop.name }}
+    </div>
+
+    <nav class="links-menu">
+        <ul>
+            {% for link in linklists.main-menu.links %}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {% endfor %}            
+        </ul>
+    </nav>
+
+    <div class="header-cart">
+        {% render 'icon-cart' %}
+    </div>
+</header>
