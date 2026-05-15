@@ -1,0 +1,45 @@
+{{ 'global.css' | asset_url | stylesheet_tag }}
+
+<main>
+ {% assign collection = collections[section.settings.featured_collection] %}
+
+     <span id="collection-title"> <h2>{{ collection.title }}</h2></span>
+
+      <section class="collection">
+            {% for product in collection.products %}
+                  <div class="product">
+                        <a href="{{ product.url }}">
+                        <img 
+                        src="{{ product.featured_image | image_url: width: 200 }}" 
+                        alt="{{ product.featured_image.alt }}">
+                        </a>
+
+                        <p><b>{{ product.title }}</b></p>
+                        <p><b>{{ product.price | money }}</b></p>
+
+                         <a href="{{ product.url }}" class="btn-primary">
+                              Comprar agora
+                        </a>
+                  </div>
+            {% endfor %}
+      </section>     
+</main>
+
+
+{% schema %}
+{
+  "name": "Coleção Produtos",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "featured_collection",
+      "label": "Coleção Principal"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Coleção Produtos"
+    }
+  ]
+}
+{% endschema %}

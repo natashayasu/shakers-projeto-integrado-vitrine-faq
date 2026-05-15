@@ -1,0 +1,63 @@
+{{ 'main-product.css' |  asset_url |  stylesheet_tag }}
+{{ 'global.css' | asset_url | stylesheet_tag }}
+
+<main>
+    {% assign product = all_products[section.settings.main_product] %}
+
+    <section class="main-product">
+        <div class="main-product-info">
+            {% if section.settings.main_product != blank %}
+                <h2>Produto em destaque</h2>
+                <h3>{{ product.title }}</h3>
+                <p class="product-price">{{ product.price | money }}</p>
+                <p>{{ product.description }}</p>
+
+                    {% for option in product.options_with_values %}
+                        <label for="{{ option.name | handle }}">
+                                {{ option.name }}
+                        </label>
+                        <select id="{{ option.name | handle }}">
+                                <option disabled selected>
+                                    Selecione {{ option.name }}
+                                </option>
+                                {% for value in option.values %}
+                                    <option value="{{ value }}">
+                                            {{ value }}
+                                    </option>
+                                {% endfor %}
+                        </select>
+                    {% endfor %}
+
+                    <div class="btn-cart-wrapper">
+                        {% render 'btn-cart', product: product %}
+                    </div>
+            {% endif %}            
+        </div>
+
+        {% if product.featured_image != blank %}
+            <img src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.featured_image.alt }}" class="product-image" /> 
+        {% endif %}
+    </section>
+</main>
+
+<script>
+    const variants = {{ product.variants | json }}
+</script>
+
+{%  schema  %} 
+    {
+        "name": "Produto Principal",
+        "settings": [
+            {
+                "type": "product",
+                "id": "main_product",
+                "label": "Escolha um produto"
+            }   
+        ],
+        "presets": [
+            {
+             "name": "Main Product"
+            }
+        ]      
+    }   
+{% endschema %}

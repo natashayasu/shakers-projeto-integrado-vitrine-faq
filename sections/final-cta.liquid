@@ -1,0 +1,48 @@
+{{ 'global.css' | asset_url | stylesheet_tag }}
+
+<section class="final-cta">
+
+  <h2>{{ section.settings.title }}</h2>
+  <p>{{ section.settings.text }}</p>
+
+  <a href="{{ section.settings.button_link }}" class="cta-button">
+    {{ section.settings.button_label }}
+  </a>
+
+</section>
+
+{% schema %}
+{
+  "name": "Final CTA",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Não perca essa oportunidade!"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Texto",
+      "default": "Confira nosso produto principal agora mesmo."
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link do botão"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto do botão",
+      "default": "Comprar agora"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Final CTA"
+    }
+  ]
+}
+{% endschema %}
